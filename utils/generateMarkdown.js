@@ -47,11 +47,11 @@ This project is licensed under the ${license} license. For more details, see [th
 function generateMarkdown(data) {
   return `# ${data.title}
   ${data.license && data.license !== 'None' ? renderLicenseBadge(data.license) : ''}
-
+--
 ## Description
 
 ${data.description}
-
+--
 ## Table of Contents
 
 - [Installation](#installation)
@@ -60,25 +60,25 @@ ${data.license && data.license !== 'None' ? '- [License](#license)\n' : ''}
 - [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
-
+--
 ## Installation
 
 ${data.installation}
-
+--
 ## Usage
 
 ${data.usage}
-
+--
 ${renderLicenseSection(data.license)}
-
+--
 ## Contributing
 
 ${data.contributing}
-
+--
 ## Tests
 
 ${data.tests}
-
+--
 ## Questions
 
 If you have any questions, please contact me at [${data.email}](mailto:${data.email}).
