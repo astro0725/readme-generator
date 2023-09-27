@@ -46,7 +46,7 @@ This project is licensed under the ${license} license. For more details, see [th
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   return `# ${data.title}
-  ${renderLicenseBadge(data.license)}
+  ${data.license && data.license !== 'None' ? renderLicenseBadge(data.license) : ''}
 
 ## Description
 
@@ -56,7 +56,7 @@ ${data.description}
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [License](#license)
+${data.license && data.license !== 'None' ? '- [License](#license)\n' : ''}
 - [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
@@ -69,9 +69,7 @@ ${data.installation}
 
 ${data.usage}
 
-## License
-
-This project is licensed under the ${data.license} license.
+${renderLicenseSection(data.license)}
 
 ## Contributing
 
