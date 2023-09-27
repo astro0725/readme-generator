@@ -26,6 +26,12 @@ const questions = [
         message: 'Provide usage information:',
     },
     {
+        type: 'list',
+        name: 'license',
+        message: 'Choose a license:',
+        choices: ['MIT', 'Apache 2.0', 'GPLv3', 'BSD 3-Clause', 'None'],
+    },
+    {
         type: 'input',
         name: 'contributing',
         message: 'Provide contribution guidelines:',
@@ -34,12 +40,6 @@ const questions = [
         type: 'input',
         name: 'tests',
         message: 'Provide test instructions:',
-    },
-    {
-        type: 'list',
-        name: 'license',
-        message: 'Choose a license:',
-        choices: ['MIT', 'Apache 2.0', 'GPLv3', 'BSD 3-Clause', 'None'],
     },
     {
         type: 'input',
