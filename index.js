@@ -18,12 +18,12 @@ const questions = [
     {
         type: 'editor',
         name: 'installation',
-        message: 'Enter the installation instructions:',
+        message: 'Enter the installation instructions (open your editor and type the instructions, save and close when done):',
     },
     {
         type: 'editor',
         name: 'usage',
-        message: 'Provide usage information:',
+        message: 'Provide usage information (open your editor and type the instructions, save and close when done):',
     },
     {
         type: 'list',
@@ -39,7 +39,7 @@ const questions = [
     {
         type: 'editor',
         name: 'tests',
-        message: 'Provide test instructions:',
+        message: 'Provide test instructions (open your editor and type the instructions, save and close when done):',
     },
     {
         type: 'input',
