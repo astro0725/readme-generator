@@ -16,12 +16,12 @@ const questions = [
         message: 'Please enter a description for your project:',
     },
     {
-        type: 'input',
+        type: 'editor',
         name: 'installation',
         message: 'Enter the installation instructions:',
     },
     {
-        type: 'input',
+        type: 'editor',
         name: 'usage',
         message: 'Provide usage information:',
     },
@@ -37,7 +37,7 @@ const questions = [
         message: 'Provide contribution guidelines:',
     },
     {
-        type: 'input',
+        type: 'editor',
         name: 'tests',
         message: 'Provide test instructions:',
     },
