@@ -56,8 +56,7 @@ ${data.description}
 
 - [Installation](#installation)
 - [Usage](#usage)
-${data.license && data.license !== 'None' ? '- [License](#license)\n' : ''}
-- [Contributing](#contributing)
+${data.license && data.license !== 'None' ? '- [License](#license)\n' : ''}- [Contributing](#contributing)
 - [Tests](#tests)
 - [Questions](#questions)
 ---

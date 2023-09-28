@@ -32,9 +32,9 @@ const questions = [
         choices: ['MIT', 'Apache 2.0', 'GPLv3', 'BSD 3-Clause', 'None'],
     },
     {
-        type: 'input',
+        type: 'editor',
         name: 'contributing',
-        message: 'Provide contribution guidelines:',
+        message: 'Provide contribution guidelines (open your editor and type the instructions, save and close when done):',
     },
     {
         type: 'editor',
@@ -70,8 +70,26 @@ function writeToFile(fileName, data) {
 }
 
 // TODO: Create a function to initialize app
+function writeToFile(fileName, data) {
+    // Define the directory path
+    const dir = `./generated-readmes/${fileName}`;
+
+    // Ensure directory exists and then write the file
+    fs.ensureDir(dir)
+        .then(() => {
+            fs.writeFile(`${dir}/README.md`, data, (err) => {
+                if (err) throw err;
+                console.log('README.md has been generated!');
+            });
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+}
+
 function init() {
     inquirer.prompt(questions).then((answers) => {
+        // Use the project title as the folder name
         writeToFile(answers.title, generateMarkdown(answers));
     });
 }
