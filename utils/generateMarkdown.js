@@ -43,47 +43,38 @@ return `## License
 This project is licensed under the ${license} license. For more details, see [this link](${renderLicenseLink(license)}).`;
 }
 
+function generateSection(title, content) {
+  let genContent = "";
+  genContent += generateTitle(data.title);
+  genContent += generateDescription(data.description);
+  if (data.screenshots) genContent += generateScreenshots(data.screenshots);
+  if (data.features) genContent += generateFeatures(data.features);
+  if (data.installations) genContent += generateInstallation(data.installations);
+  if (data.usage) genContent += generateUsage(data.usage);
+  if (data.roadmaps) genContent += generateRoadmap(data.roadmaps);
+  if (data.contributing) genContent += generateContributing(data.contributing);
+  if (data.tests) genContent += generateTests(data.tests);
+  if (data.screenshots) genContent += generateScreenshots(data.screenshots);
+  if (data.questions) genContent += generateQuestions(data.questions);
+  if (data.credits) genContent += generateCredits(data.credits);
+  return `## ${title}\n\n${content}\n\n`;
+}
+
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
-  return `# ${data.title}
-  ${data.license && data.license !== 'None' ? renderLicenseBadge(data.license) : ''}
----
-## Description
+  let markdownContent = "";
 
-${data.description}
----
-## Table of Contents
+  if (data.license && data.license !== 'None') {
+    markdownContent += renderLicenseBadge(data.license);
+    markdownContent += renderLicenseSection(data.license);
+  }
 
-- [Installation](#installation)
-- [Usage](#usage)
-${data.license && data.license !== 'None' ? '- [License](#license)\n' : ''}- [Contributing](#contributing)
-- [Tests](#tests)
-- [Questions](#questions)
----
-## Installation
+  if (data.generateSection) {
+    markdownContent += renderSection(data.generateSection);
+  }
 
-${data.installation}
----
-## Usage
-
-${data.usage}
----
-${renderLicenseSection(data.license)}
----
-## Contributing
-
-${data.contributing}
----
-## Tests
-
-${data.tests}
----
-## Questions
-
-If you have any questions, please contact me at [${data.email}](mailto:${data.email}).
-
-Find me on GitHub: [${data.github}](https://github.com/${data.github}).
-`;
+  return markdownContent;
 }
+
 
 module.exports = generateMarkdown;

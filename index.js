@@ -1,29 +1,42 @@
-// TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs-extra');
 const generateMarkdown = require('./utils/generateMarkdown');
 
-// TODO: Create an array of questions for user input
-const questions = [
+const allSections = [
     {
         type: 'input',
         name: 'title',
         message: 'What is the title of your project?',
     },
     {
-        type: 'input',
+        type: 'editor',
         name: 'description',
-        message: 'Please enter a description for your project:',
+        message: 'Please enter a description for your project (when your editor opens, type your content, save and close when done):',
+    },
+    {
+        type: 'input',
+        name: 'screenshots',
+        message: 'Enter the link or path to your screenshot(s):',
+    },
+    {
+        type: 'editor',
+        name: 'features',
+        message: 'Enter features for your project (when your editor opens, type your content, save and close when done):',
+    },
+    {
+        type: 'input',
+        name: 'demo',
+        message: 'Please provide live demo with annotations if possible:',
     },
     {
         type: 'editor',
         name: 'installation',
-        message: 'Enter the installation instructions (open your editor and type the instructions, save and close when done):',
+        message: 'Enter the installation instructions (when your editor opens, type your content, save and close when done):',
     },
     {
         type: 'editor',
         name: 'usage',
-        message: 'Provide usage information (open your editor and type the instructions, save and close when done):',
+        message: 'Provide usage information (when your editor opens, type your content, save and close when done):',
     },
     {
         type: 'list',
@@ -34,12 +47,12 @@ const questions = [
     {
         type: 'editor',
         name: 'contributing',
-        message: 'Provide contribution guidelines (open your editor and type the instructions, save and close when done):',
+        message: 'Provide contribution guidelines (when your editor opens, type your content, save and close when done):',
     },
     {
         type: 'editor',
         name: 'tests',
-        message: 'Provide test instructions (open your editor and type the instructions, save and close when done):',
+        message: 'Provide test instructions (when your editor opens, type your content, save and close when done):',
     },
     {
         type: 'input',
@@ -51,48 +64,53 @@ const questions = [
         name: 'email',
         message: 'Enter your email address:',
     },
+    {
+        type: 'editor',
+        name: 'credits',
+        message: 'Credit your contributor(s):',
+    },
 ];
 
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    const dir = `./generated-readmes/${fileName}`;
-
-    fs.ensureDir(dir)
-        .then(() => {
-            fs.writeFile(`${dir}/README.md`, data, (err) => {
-                if (err) throw err;
-                console.log('README.md has been generated!');
-            });
-        })
-        .catch((err) => {
-            console.error(err);
-        });
-}
-
-// TODO: Create a function to initialize app
-function writeToFile(fileName, data) {
-    // Define the directory path
-    const dir = `./generated-readmes/${fileName}`;
-
-    // Ensure directory exists and then write the file
-    fs.ensureDir(dir)
-        .then(() => {
-            fs.writeFile(`${dir}/README.md`, data, (err) => {
-                if (err) throw err;
-                console.log('README.md has been generated!');
-            });
-        })
-        .catch((err) => {
-            console.error(err);
-        });
-}
-
-function init() {
-    inquirer.prompt(questions).then((answers) => {
-        // Use the project title as the folder name
-        writeToFile(answers.title, generateMarkdown(answers));
+async function init() {
+    const { addSections } = await inquirer.prompt({
+        type: 'confirm',
+        name: 'addSections',
+        message: 'Title, description, and screenshots are required. Would you like to add any other sections?',
+        default: false,
     });
+
+    let selectedSections = ['title', 'description', 'screenshots'];
+
+    if (addSections) {
+        const { sections } = await inquirer.prompt({
+            type: 'checkbox',
+            name: 'sections',
+            message: 'Select the sections you want to include:',
+            choices: ['badges', 'table of contents', 'features', 'demo', 'installation', 'usage', 'roadmap', 'contributing', 'tests', 'screenshots', 'questions', 'credits'],
+        });
+        selectedSections.push(...sections);
+    }
+
+    const questions = selectedSections.map(section => allSections[section]);
+
+    const answers = await inquirer.prompt(questions);
+
+writeToFile(answers.title, generateMarkdown(answers));
 }
 
-// Function call to initialize app
+function writeToFile(fileName, data) {
+    const dir = `./generated-readmes/${fileName}`;
+
+    fs.ensureDir(dir)
+        .then(() => {
+            fs.writeFile(`${dir}/README.md`, data, (err) => {
+                if (err) throw err;
+                console.log('README.md has been generated!');
+            });
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+}
+
 init();
