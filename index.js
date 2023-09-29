@@ -79,30 +79,55 @@ const allSections = [
     },
 ];
 
+const allSectionsObj = allSections.reduce((acc, curr) => {
+    acc[curr.name] = curr;
+    return acc;
+}, {});
+
 // allows user to pick what sections to add to README
 async function init() {
     const { addSections } = await inquirer.prompt({
         type: 'confirm',
         name: 'addSections',
-        message: 'Title, description, and screenshots are required. Would you like to add any other sections?',
+        message: 'Title and description are required. Would you like to add any other sections?',
         default: false,
     });
 
-    let selectedSections = ['title', 'description', 'screenshots'];
+    let selectedSections = ['title', 'description'];
 
     if (addSections) {
         const { sections } = await inquirer.prompt({
             type: 'checkbox',
             name: 'sections',
             message: 'Select the sections you want to include:\n Instructions:\n -Press your up/down keys to scroll options\n -Press space to select\n -Press enter to confirm selection\n',
-            choices: ['badges', 'table of contents', 'features', 'demo', 'installation', 'usage', 'roadmap', 'contributing', 'tests', 'screenshots', 'questions', 'credits'],
+            choices: ['badges', 'license', 'features', 'demo', 'installation', 'usage', 'roadmap', 'contributing', 'tests', 'screenshots', 'questions', 'credits'],
         });
         selectedSections.push(...sections);
     }
 
-    const questions = selectedSections.map(section => allSections[section]);
+// asks if user wants a table of contents if they have more than 4 or more sections
+    if (selectedSections.length >= 4) {
+        const { addTableOfContents } = await inquirer.prompt({
+            type: 'confirm',
+            name: 'addTableOfContents',
+            message: 'You have selected four or more sections. Would you like to add a table of contents?',
+            default: true,
+        });
+
+        if (addTableOfContents) {
+            selectedSections.push('tableOfContents');
+        }
+    }
+}
+
+    const questions = selectedSections.map(section => allSectionsObj[section]);
 
     const answers = await inquirer.prompt(questions);
+    let questionsContent = "";
+
+    if (selectedSections.includes("questions")) {
+        questionsContent = generateQuestionsSection(answers.email, answers.github);
+    }
 
 writeToFile(answers.title, generateMarkdown(answers));
 }

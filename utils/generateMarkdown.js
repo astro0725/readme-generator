@@ -82,6 +82,15 @@ function renderSection(title, content) {
   return `## ${title}\n\n${content}\n\n`;
 }
 
+function renderQuestions(email, github) {
+  return `
+## Questions
+
+For any questions regarding this project, please feel free to contact me at ${email}.
+
+You can find more of my work on [GitHub](https://github.com/${github}).`;
+}
+
 // generates readme content
 function generateMarkdown(data) {
   let markdownContent = "";
@@ -101,16 +110,17 @@ function generateMarkdown(data) {
     }
   }
 
-// if user adds questions, then it will be generated
-  if (data.email && data.github) {
-    markdownContent += `## Questions\n\nIf you have any questions, please contact me at [${data.email}](mailto:${data.email}).\n\nFind me on GitHub: [${data.github}](https://github.com/${data.github}).\n\n`;
-  }
 
 // if user has licensing and wants to include it to the readme, then it will be generated
   if (data.license && data.license !== 'None') {
     markdownContent += renderLicenseBadge(data.license);
     markdownContent += renderLicenseSection(data.license);
   }
+
+// if user adds questions, then it will be generated
+  if (selectedSections.includes("questions") && answers.email && answers.github) {
+    questionsContent = renderQuestions(answers.email, answers.github);
+}
 
   return markdownContent;
 }
