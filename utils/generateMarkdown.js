@@ -43,6 +43,29 @@ return `## License
 This project is licensed under the ${license} license. For more details, see [this link](${renderLicenseLink(license)}).`;
 }
 
+function generateToC(data) {
+  const tocSections = {
+    features: 'Features',
+    installations: 'Installation',
+    usage: 'Usage',
+    roadmaps: 'Roadmaps',
+    contributing: 'Contributing',
+    tests: 'Tests',
+    screenshots: 'Screenshots',
+    questions: 'Questions',
+    credits: 'Credits'
+  };
+
+  let toc = "## Table of Contents\n";
+  for (let key in tocSections) {
+    if (data[key]) {
+      toc += `- [${tocSections[key]}](#${key})\n`;
+    }
+  }
+  
+  return toc;
+}
+
 const sections = {
   screenshots: 'Screenshots',
   features: 'Features',
@@ -69,6 +92,10 @@ function generateMarkdown(data) {
   }
   markdownContent += renderTitle(data.title);
   markdownContent += renderDescription(data.description);
+
+  if (data.tableOfContents) {
+    markdownContent += generateToC(data);
+  }
 
   for (let key in sections) {
     if (data[key]) {
