@@ -43,20 +43,19 @@ return `## License
 This project is licensed under the ${license} license. For more details, see [this link](${renderLicenseLink(license)}).`;
 }
 
+const sections = {
+  screenshots: 'Screenshots',
+  features: 'Features',
+  installations: 'Installation',
+  usage: 'Usage',
+  roadmaps: 'Roadmaps',
+  contributing: 'Contributing',
+  tests: 'Tests',
+  questions: 'Questions',
+  credits: 'Credits'
+};
+
 function generateSection(title, content) {
-  let genContent = "";
-  genContent += generateTitle(data.title);
-  genContent += generateDescription(data.description);
-  if (data.screenshots) genContent += generateScreenshots(data.screenshots);
-  if (data.features) genContent += generateFeatures(data.features);
-  if (data.installations) genContent += generateInstallation(data.installations);
-  if (data.usage) genContent += generateUsage(data.usage);
-  if (data.roadmaps) genContent += generateRoadmap(data.roadmaps);
-  if (data.contributing) genContent += generateContributing(data.contributing);
-  if (data.tests) genContent += generateTests(data.tests);
-  if (data.screenshots) genContent += generateScreenshots(data.screenshots);
-  if (data.questions) genContent += generateQuestions(data.questions);
-  if (data.credits) genContent += generateCredits(data.credits);
   return `## ${title}\n\n${content}\n\n`;
 }
 
@@ -68,10 +67,13 @@ function generateMarkdown(data) {
     markdownContent += renderLicenseBadge(data.license);
     markdownContent += renderLicenseSection(data.license);
   }
+  markdownContent += renderTitle(data.title);
+  markdownContent += renderDescription(data.description);
 
-  if (data.generateSection) {
-    markdownContent += renderSection(data.generateSection);
-  }
+  for (let key in sections) {
+    if (data[key]) {
+      markdownContent += generateSection(sections[key], data[key]);
+    }
 
   return markdownContent;
 }
