@@ -63,14 +63,9 @@ const allSections = [
         message: 'Provide test instructions (when your editor opens, type your content, save and close when done):',
     },
     {
-        type: 'input',
-        name: 'github',
-        message: 'Enter your GitHub username:',
-    },
-    {
-        type: 'input',
-        name: 'email',
-        message: 'Enter your email address:',
+        type: 'editor',
+        name: 'questions',
+        message: 'Enter ways to contact you about your project:',
     },
     {
         type: 'editor',
@@ -94,18 +89,21 @@ async function init() {
     });
 
     let selectedSections = ['title', 'description'];
+    let answers = {};
 
     if (addSections) {
         const { sections } = await inquirer.prompt({
             type: 'checkbox',
             name: 'sections',
-            message: 'Select the sections you want to include:\n Instructions:\n -Press your up/down keys to scroll options\n -Press space to select\n -Press enter to confirm selection\n',
-            choices: ['badges', 'license', 'features', 'demo', 'installation', 'usage', 'roadmap', 'contributing', 'tests', 'screenshots', 'questions', 'credits'],
-        });
+            message: 'Select the sections you want to include:\n Instructions:\n -Press your up/down keys to scroll options\n -Press space to select, i to deselect\n -Press enter to confirm selection\n',
+            choices: allSections
+            .filter(section => section.name !== 'title' && section.name !== 'description')
+            .map(section => section.name),
+    });
         selectedSections.push(...sections);
     }
 
-// asks if user wants a table of contents if they have more than 4 or more sections
+// asks if user wants a table of contents if they have 4 or more sections
     if (selectedSections.length >= 4) {
         const { addTableOfContents } = await inquirer.prompt({
             type: 'confirm',
@@ -116,20 +114,14 @@ async function init() {
 
         if (addTableOfContents) {
             selectedSections.push('tableOfContents');
+            answers.tableOfContents = true;
         }
     }
-}
 
-    const questions = selectedSections.map(section => allSectionsObj[section]);
+    const questions = selectedSections.map(section => allSectionsObj[section]).filter(Boolean);
+    answers = await inquirer.prompt(questions);
 
-    const answers = await inquirer.prompt(questions);
-    let questionsContent = "";
-
-    if (selectedSections.includes("questions")) {
-        questionsContent = generateQuestionsSection(answers.email, answers.github);
-    }
-
-writeToFile(answers.title, generateMarkdown(answers));
+    writeToFile(answers.title, generateMarkdown(answers, selectedSections));
 }
 
 // generates README.md

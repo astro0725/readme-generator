@@ -75,28 +75,17 @@ const sections = {
   roadmap: 'Roadmap',
   contributing: 'Contributing',
   tests: 'Tests',
+  questions: 'Questions',
   credits: 'Credits'
 };
 
 function renderSection(title, content) {
-  return `## ${title}\n\n${content}\n\n`;
-}
-
-function renderQuestions(email, github) {
-  return `
-## Questions
-
-For any questions regarding this project, please feel free to contact me at ${email}.
-
-You can find more of my work on [GitHub](https://github.com/${github}).`;
+  return `---\n## ${title}\n\n${content}\n\n`;
 }
 
 // generates readme content
-function generateMarkdown(data) {
-  let markdownContent = "";
-
-  markdownContent += renderTitle(data.title);
-  markdownContent += renderDescription(data.description);
+function generateMarkdown(data, selectedSections) {
+  let markdownContent = `# ${data.title}\n---\n${data.description}\n\n`;
 
 // if user adds ToC, then it will be generated
   if (data.tableOfContents) {
@@ -116,11 +105,6 @@ function generateMarkdown(data) {
     markdownContent += renderLicenseBadge(data.license);
     markdownContent += renderLicenseSection(data.license);
   }
-
-// if user adds questions, then it will be generated
-  if (selectedSections.includes("questions") && answers.email && answers.github) {
-    questionsContent = renderQuestions(answers.email, answers.github);
-}
 
   return markdownContent;
 }
