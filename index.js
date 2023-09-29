@@ -1,12 +1,21 @@
+// required imports for functionality
 const inquirer = require('inquirer');
+// added fs-extra for file organization
 const fs = require('fs-extra');
 const generateMarkdown = require('./utils/generateMarkdown');
 
+// question prompts for generating README
 const allSections = [
     {
         type: 'input',
         name: 'title',
         message: 'What is the title of your project?',
+    },
+    {
+        type: 'list',
+        name: 'license',
+        message: 'Choose a license:',
+        choices: ['MIT', 'Apache 2.0', 'GPLv3', 'BSD 3-Clause', 'None'],
     },
     {
         type: 'editor',
@@ -26,7 +35,7 @@ const allSections = [
     {
         type: 'input',
         name: 'demo',
-        message: 'Please provide live demo with annotations if possible:',
+        message: 'Provide live demo with annotations if possible:',
     },
     {
         type: 'editor',
@@ -39,10 +48,9 @@ const allSections = [
         message: 'Provide usage information (when your editor opens, type your content, save and close when done):',
     },
     {
-        type: 'list',
-        name: 'license',
-        message: 'Choose a license:',
-        choices: ['MIT', 'Apache 2.0', 'GPLv3', 'BSD 3-Clause', 'None'],
+        type: 'editor',
+        name: 'roadmap',
+        message: 'Enter future plans for your project (when your editor opens, type your content, save and close when done):',
     },
     {
         type: 'editor',
@@ -71,6 +79,7 @@ const allSections = [
     },
 ];
 
+// allows user to pick what sections to add to README
 async function init() {
     const { addSections } = await inquirer.prompt({
         type: 'confirm',
@@ -98,6 +107,7 @@ async function init() {
 writeToFile(answers.title, generateMarkdown(answers));
 }
 
+// generates README.md
 function writeToFile(fileName, data) {
     const dir = `./generated-readmes/${fileName}`;
 

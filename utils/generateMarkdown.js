@@ -1,5 +1,5 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
+// renders license badge
+// returns false if no license
 function renderLicenseBadge(license) {
   switch (license) {
     case 'MIT':
@@ -15,8 +15,8 @@ function renderLicenseBadge(license) {
   }
 }
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
+// renders license link 
+// returns false if no license
 function renderLicenseLink(license) {
   switch (license) {
     case 'MIT':
@@ -32,8 +32,7 @@ function renderLicenseLink(license) {
 }
 }
 
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
+// if license is specified, returns license section
 function renderLicenseSection(license) {
   if (license === 'None' || !renderLicenseLink(license)) {
     return '';
@@ -43,7 +42,8 @@ return `## License
 This project is licensed under the ${license} license. For more details, see [this link](${renderLicenseLink(license)}).`;
 }
 
-function generateToC(data) {
+// renders ToC based on selected sections from user
+function renderToC(data) {
   const tocSections = {
     features: 'Features',
     installations: 'Installation',
@@ -66,6 +66,7 @@ function generateToC(data) {
   return toc;
 }
 
+// dynamic rendering code for selecting optional sections
 const sections = {
   screenshots: 'Screenshots',
   features: 'Features',
@@ -74,33 +75,42 @@ const sections = {
   roadmaps: 'Roadmaps',
   contributing: 'Contributing',
   tests: 'Tests',
-  questions: 'Questions',
   credits: 'Credits'
 };
 
-function generateSection(title, content) {
+function renderSection(title, content) {
   return `## ${title}\n\n${content}\n\n`;
 }
 
-// TODO: Create a function to generate markdown for README
+// generates readme content
 function generateMarkdown(data) {
   let markdownContent = "";
 
+  markdownContent += renderTitle(data.title);
+  markdownContent += renderDescription(data.description);
+
+// if user adds ToC, then it will be generated
+  if (data.tableOfContents) {
+    markdownContent += renderToC(data);
+  }
+
+// if user adds a section, then it will be generated
+  for (let key in sections) {
+    if (data[key]) {
+      markdownContent += renderSection(sections[key], data[key]);
+    }
+  }
+
+// if user adds questions, then it will be generated
+  if (data.email && data.github) {
+    markdownContent += `## Questions\n\nIf you have any questions, please contact me at [${data.email}](mailto:${data.email}).\n\nFind me on GitHub: [${data.github}](https://github.com/${data.github}).\n\n`;
+  }
+
+// if user has licensing and wants to include it to the readme, then it will be generated
   if (data.license && data.license !== 'None') {
     markdownContent += renderLicenseBadge(data.license);
     markdownContent += renderLicenseSection(data.license);
   }
-  markdownContent += renderTitle(data.title);
-  markdownContent += renderDescription(data.description);
-
-  if (data.tableOfContents) {
-    markdownContent += generateToC(data);
-  }
-
-  for (let key in sections) {
-    if (data[key]) {
-      markdownContent += generateSection(sections[key], data[key]);
-    }
 
   return markdownContent;
 }
