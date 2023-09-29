@@ -65,7 +65,7 @@ const allSections = [
     {
         type: 'editor',
         name: 'questions',
-        message: 'Enter ways to contact you about your project:',
+        message: 'Enter ways to contact you about your project (when your editor opens, type your content, save and close when done):',
     },
     {
         type: 'editor',

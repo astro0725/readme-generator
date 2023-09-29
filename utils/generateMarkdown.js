@@ -44,16 +44,18 @@ This project is licensed under the ${license} license. For more details, see [th
 
 // renders ToC based on selected sections from user
 function renderToC(data) {
+  console.log("Rendering ToC...");
   const tocSections = {
     features: 'Features',
-    installations: 'Installation',
+    installation: 'Installation',
     usage: 'Usage',
     roadmap: 'Roadmap',
     contributing: 'Contributing',
     tests: 'Tests',
     screenshots: 'Screenshots',
     questions: 'Questions',
-    credits: 'Credits'
+    credits: 'Credits',
+    license: 'License'
   };
 
   let toc = "## Table of Contents\n";
@@ -68,8 +70,9 @@ function renderToC(data) {
 
 // dynamic rendering code for selecting optional sections
 const sections = {
-  screenshots: 'Screenshots',
   features: 'Features',
+  screenshots: 'Screenshots',
+  demo: 'Demo',
   installations: 'Installation',
   usage: 'Usage',
   roadmap: 'Roadmap',
@@ -84,12 +87,16 @@ function renderSection(title, content) {
 }
 
 // generates readme content
-function generateMarkdown(data, selectedSections) {
+function generateMarkdown(data) {
+  console.log(data);
   let markdownContent = `# ${data.title}\n---\n${data.description}\n\n`;
 
 // if user adds ToC, then it will be generated
   if (data.tableOfContents) {
+    console.log("Table of Contents is required. Calling renderToC...");
     markdownContent += renderToC(data);
+  } else {
+    console.log("Table of Contents is not required.");
   }
 
 // if user adds a section, then it will be generated
@@ -98,7 +105,6 @@ function generateMarkdown(data, selectedSections) {
       markdownContent += renderSection(sections[key], data[key]);
     }
   }
-
 
 // if user has licensing and wants to include it to the readme, then it will be generated
   if (data.license && data.license !== 'None') {
