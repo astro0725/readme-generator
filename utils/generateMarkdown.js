@@ -48,7 +48,7 @@ function renderToC(data) {
     features: 'Features',
     installations: 'Installation',
     usage: 'Usage',
-    roadmaps: 'Roadmaps',
+    roadmap: 'Roadmap',
     contributing: 'Contributing',
     tests: 'Tests',
     screenshots: 'Screenshots',
@@ -72,7 +72,7 @@ const sections = {
   features: 'Features',
   installations: 'Installation',
   usage: 'Usage',
-  roadmaps: 'Roadmaps',
+  roadmap: 'Roadmap',
   contributing: 'Contributing',
   tests: 'Tests',
   credits: 'Credits'

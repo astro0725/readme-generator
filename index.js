@@ -94,7 +94,7 @@ async function init() {
         const { sections } = await inquirer.prompt({
             type: 'checkbox',
             name: 'sections',
-            message: 'Select the sections you want to include:',
+            message: 'Select the sections you want to include:\n Instructions:\n -Press your up/down keys to scroll options\n -Press space to select\n -Press enter to confirm selection\n',
             choices: ['badges', 'table of contents', 'features', 'demo', 'installation', 'usage', 'roadmap', 'contributing', 'tests', 'screenshots', 'questions', 'credits'],
         });
         selectedSections.push(...sections);
