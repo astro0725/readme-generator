@@ -42,29 +42,33 @@ return `## License
 This project is licensed under the ${license} license. For more details, see [this link](${renderLicenseLink(license)}).`;
 }
 
-// renders ToC based on selected sections from user
-function renderToC(data) {
-  console.log("Rendering ToC...");
-  const tocSections = {
-    features: 'Features',
-    installation: 'Installation',
-    usage: 'Usage',
-    roadmap: 'Roadmap',
-    contributing: 'Contributing',
-    tests: 'Tests',
-    screenshots: 'Screenshots',
-    questions: 'Questions',
-    credits: 'Credits',
-    license: 'License'
-  };
-
-  let toc = "## Table of Contents\n";
-  for (let key in tocSections) {
-    if (data[key]) {
-      toc += `- [${tocSections[key]}](#${key})\n`;
+// builds table of contents based off of sections by identifying if section has ## next to the name
+function extractSections(markdown) {
+  const sections = [];
+  const lines = markdown.split("\n");
+  
+  for (let line of lines) {
+    if (line.startsWith("## ")) {
+      const sectionTitle = line.replace("## ", "").trim();
+      sections.push({
+        title: sectionTitle,
+        link: sectionTitle.toLowerCase().replace(/ /g, "-")
+      });
     }
   }
   
+  return sections;
+}
+
+// renders ToC based on selected sections from user
+function renderToC(markdown) {
+  const sections = extractSections(markdown);
+  
+  let toc = "## Table of Contents\n";
+  for (let section of sections) {
+    toc += `- [${section.title}](#${section.link})\n`;
+  }
+
   return toc;
 }
 
@@ -91,13 +95,9 @@ function generateMarkdown(data) {
   console.log(data);
   let markdownContent = `# ${data.title}\n---\n${data.description}\n\n`;
 
-// if user adds ToC, then it will be generated
-  if (data.tableOfContents) {
-    console.log("Table of Contents is required. Calling renderToC...");
-    markdownContent += renderToC(data);
-  } else {
-    console.log("Table of Contents is not required.");
-  }
+// ToC generated
+  const toc = renderToC(markdownContent);
+  markdownContent = `${markdownContent.split("##")[0]}\n\n${toc}\n\n${markdownContent.split("##").slice(1).join("##")}`;
 
 // if user adds a section, then it will be generated
   for (let key in sections) {
