@@ -84,11 +84,11 @@ async function init() {
     const { addSections } = await inquirer.prompt({
         type: 'confirm',
         name: 'addSections',
-        message: 'Title and description are required. Would you like to add any other sections?',
+        message: 'Title, description, installation, usage, license, contributing, tests, and questions are required. Would you like to add any other sections?',
         default: false,
     });
 
-    let selectedSections = ['title', 'description'];
+    let selectedSections = ['title', 'description', 'installation', 'usage', 'license', 'contributing', 'tests', 'questions'];
     let answers = {};
 
     if (addSections) {
@@ -97,7 +97,7 @@ async function init() {
             name: 'sections',
             message: 'Select the sections you want to include:\n Instructions:\n -Press your up/down keys to scroll options\n -Press space to select, i to deselect\n -Press enter to confirm selection\n',
             choices: allSections
-            .filter(section => section.name !== 'title' && section.name !== 'description')
+            .filter(section => !selectedSections.includes(section.name))
             .map(section => section.name),
     });
         selectedSections.push(...sections);
