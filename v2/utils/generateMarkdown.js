@@ -46,12 +46,13 @@ function renderToC(data) {
   console.log("Rendering ToC...");
   const tocSections = {
     features: 'Features',
-    installation: 'Installation',
+    screenshots: 'Screenshots',
+    demo: 'Demo',
+    installations: 'Installation',
     usage: 'Usage',
     roadmap: 'Roadmap',
     contributing: 'Contributing',
     tests: 'Tests',
-    screenshots: 'Screenshots',
     questions: 'Questions',
     credits: 'Credits',
     license: 'License'
