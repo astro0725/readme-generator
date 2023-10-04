@@ -42,6 +42,7 @@ return `## License
 This project is licensed under the ${license} license. For more details, see [this link](${renderLicenseLink(license)}).`;
 }
 
+// renders table of contents based on user input data
 function renderToC(data) {
   console.log("Rendering ToC...");
   const tocSections = {
@@ -58,7 +59,7 @@ function renderToC(data) {
     license: 'License'
   };
 
-  let toc = "## Table of Contents\n";
+  let toc = "---\n## Table of Contents\n";
   for (let key in tocSections) {
     if (data[key]) {
       toc += `- [${tocSections[key]}](#${key})\n`;
@@ -92,9 +93,9 @@ function generateMarkdown(data) {
   let markdownContent = `# ${data.title}\n---\n${data.description}\n\n`;
 
 // if user adds ToC, then it will be generated
-  if (data.tableOfContents) {
+  if (data.tableOfContents === true) {
     console.log("Table of Contents is required. Calling renderToC...");
-    markdownContent += renderToC(data);
+    markdownContent += renderToC(data) + '\n';
   } else {
     console.log("Table of Contents is not required.");
   }

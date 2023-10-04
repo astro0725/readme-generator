@@ -89,7 +89,6 @@ async function init() {
     });
 
     let selectedSections = ['title', 'description'];
-    let answers = {};
 
     if (addSections) {
         const { sections } = await inquirer.prompt({
@@ -109,11 +108,10 @@ async function init() {
             type: 'confirm',
             name: 'addTableOfContents',
             message: 'You have selected four or more sections. Would you like to add a table of contents?',
-            default: true,
+            default: false,
         });
 
         if (addTableOfContents) {
-            selectedSections.push('tableOfContents');
             answers.tableOfContents = true;
         }
     }
