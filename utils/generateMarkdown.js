@@ -45,19 +45,15 @@ This project is licensed under the ${license} license. For more details, see [th
 function renderToC(data) {
   console.log("Rendering ToC...");
   const tocSections = {
-    features: 'Features',
     installation: 'Installation',
     usage: 'Usage',
-    roadmap: 'Roadmap',
     contributing: 'Contributing',
     tests: 'Tests',
-    screenshots: 'Screenshots',
     questions: 'Questions',
-    credits: 'Credits',
     license: 'License'
   };
 
-  let toc = "## Table of Contents\n";
+  let toc = "---\n## Table of Contents\n";
   for (let key in tocSections) {
     if (data[key]) {
       toc += `- [${tocSections[key]}](#${key})\n`;
@@ -69,16 +65,11 @@ function renderToC(data) {
 
 // dynamic rendering code for selecting optional sections
 const sections = {
-  features: 'Features',
-  screenshots: 'Screenshots',
-  demo: 'Demo',
   installations: 'Installation',
   usage: 'Usage',
-  roadmap: 'Roadmap',
   contributing: 'Contributing',
   tests: 'Tests',
   questions: 'Questions',
-  credits: 'Credits'
 };
 
 function renderSection(title, content) {
