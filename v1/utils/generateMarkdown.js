@@ -42,6 +42,7 @@ return `## License
 This project is licensed under the ${license} license. For more details, see [this link](${renderLicenseLink(license)}).`;
 }
 
+// renders table of contents based on data
 function renderToC(data) {
   console.log("Rendering ToC...");
   const tocSections = {
@@ -63,7 +64,7 @@ function renderToC(data) {
   return toc;
 }
 
-// dynamic rendering code for selecting optional sections
+// dynamic rendering for sections so that they can be added to the renderSection function when called in the generateMarkdown function
 const sections = {
   installations: 'Installation',
   usage: 'Usage',
@@ -84,7 +85,7 @@ function generateMarkdown(data) {
 // ToC generated
   markdownContent += renderToC(data) + '\n\n';
 
-// if user adds a section, then it will be generated
+// initializes renderToC function by grabbing the data from the prompts
   for (let key in sections) {
     if (data[key]) {
       markdownContent += renderSection(sections[key], data[key]);

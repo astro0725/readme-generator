@@ -49,6 +49,16 @@ const questions = [
     },
 ];
 
+// created intro for application
+const introPrompt = [
+    {
+        type: 'confirm',
+        name: 'continue',
+        message: "Thank you for using astro0725's CLI based README.md generator. Would you like to proceed with making a README.md?",
+        default: true
+    }
+];
+
 // writes file and adds it to a separate directory
 function writeToFile(fileName, data) {
     const dir = `./generated-readmes/${fileName}`;
@@ -65,9 +75,16 @@ function writeToFile(fileName, data) {
         });
 }
 
+// node index launches intro, if yes then generator proceeds
 function init() {
-    inquirer.prompt(questions).then((answers) => {
-        writeToFile(answers.title, generateMarkdown(answers));
+    inquirer.prompt(introPrompt).then((introAnswer) => {
+        if (introAnswer.continue) {
+            inquirer.prompt(questions).then((answers) => {
+                writeToFile(answers.title, generateMarkdown(answers));
+            });
+        } else {
+            console.log('Exiting the README.md generator. Have a great day!');
+        }
     });
 }
 

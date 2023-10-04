@@ -81,6 +81,15 @@ const allSectionsObj = allSections.reduce((acc, curr) => {
 
 // allows user to pick what sections to add to README
 async function init() {
+// Introduction message
+    await inquirer.prompt({
+        type: 'confirm',
+        name: 'continue',
+        message: "Thank you for using astro0725's CLI based README.md generator. Would you like to proceed with making a README.md?",
+        default: true
+    });
+
+// prompt to add additional sections
     const { addSections } = await inquirer.prompt({
         type: 'confirm',
         name: 'addSections',
@@ -88,9 +97,11 @@ async function init() {
         default: false,
     });
 
+// declares required sections
     let selectedSections = ['title', 'description'];
     let answers = {};
 
+// checkbox for selecting sections to add
     if (addSections) {
         const { sections } = await inquirer.prompt({
             type: 'checkbox',
@@ -123,7 +134,7 @@ async function init() {
     writeToFile(answers.title, generateMarkdown(answers, selectedSections));
 }
 
-// generates README.md
+// writes file and adds it to a separate directory
 function writeToFile(fileName, data) {
     const dir = `./generated-readmes/${fileName}`;
 
@@ -139,4 +150,5 @@ function writeToFile(fileName, data) {
         });
 }
 
+// Initializes function
 init();
