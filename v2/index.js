@@ -84,11 +84,11 @@ async function init() {
     const { addSections } = await inquirer.prompt({
         type: 'confirm',
         name: 'addSections',
-        message: 'Title, description, installation, usage, license, contributing, tests, and questions are required. Would you like to add any other sections?',
+        message: 'Title and description are required. Would you like to add any other sections?',
         default: false,
     });
 
-    let selectedSections = ['title', 'description', 'installation', 'usage', 'license', 'contributing', 'tests', 'questions'];
+    let selectedSections = ['title', 'description'];
     let answers = {};
 
     if (addSections) {
@@ -97,10 +97,25 @@ async function init() {
             name: 'sections',
             message: 'Select the sections you want to include:\n Instructions:\n -Press your up/down keys to scroll options\n -Press space to select, i to deselect\n -Press enter to confirm selection\n',
             choices: allSections
-            .filter(section => !selectedSections.includes(section.name))
+            .filter(section => section.name !== 'title' && section.name !== 'description')
             .map(section => section.name),
     });
         selectedSections.push(...sections);
+    }
+
+// asks if user wants a table of contents if they have 4 or more sections
+    if (selectedSections.length >= 4) {
+        const { addTableOfContents } = await inquirer.prompt({
+            type: 'confirm',
+            name: 'addTableOfContents',
+            message: 'You have selected four or more sections. Would you like to add a table of contents?',
+            default: true,
+        });
+
+        if (addTableOfContents) {
+            selectedSections.push('tableOfContents');
+            answers.tableOfContents = true;
+        }
     }
 
     const questions = selectedSections.map(section => allSectionsObj[section]).filter(Boolean);

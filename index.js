@@ -103,21 +103,6 @@ async function init() {
         selectedSections.push(...sections);
     }
 
-// asks if user wants a table of contents if they have 4 or more sections
-    if (selectedSections.length >= 4) {
-        const { addTableOfContents } = await inquirer.prompt({
-            type: 'confirm',
-            name: 'addTableOfContents',
-            message: 'You have selected four or more sections. Would you like to add a table of contents?',
-            default: true,
-        });
-
-        if (addTableOfContents) {
-            selectedSections.push('tableOfContents');
-            answers.tableOfContents = true;
-        }
-    }
-
     const questions = selectedSections.map(section => allSectionsObj[section]).filter(Boolean);
     answers = await inquirer.prompt(questions);
 
