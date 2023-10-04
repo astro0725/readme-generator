@@ -130,7 +130,6 @@ async function init() {
     const newAnswers = await inquirer.prompt(questions);
     Object.assign(answers, newAnswers);
 
-    console.log('Is Table of Contents set?', answers.tableOfContents);
     writeToFile(answers.title, generateMarkdown(answers, selectedSections));
 }
 
