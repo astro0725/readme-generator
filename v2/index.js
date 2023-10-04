@@ -89,6 +89,7 @@ async function init() {
     });
 
     let selectedSections = ['title', 'description'];
+    let answers = {};
 
     if (addSections) {
         const { sections } = await inquirer.prompt({
@@ -111,14 +112,14 @@ async function init() {
             default: false,
         });
 
-        if (addTableOfContents) {
-            answers.tableOfContents = true;
-        }
+        answers.tableOfContents = addTableOfContents;
     }
 
     const questions = selectedSections.map(section => allSectionsObj[section]).filter(Boolean);
-    answers = await inquirer.prompt(questions);
+    const newAnswers = await inquirer.prompt(questions);
+    Object.assign(answers, newAnswers);
 
+    console.log('Is Table of Contents set?', answers.tableOfContents);
     writeToFile(answers.title, generateMarkdown(answers, selectedSections));
 }
 
