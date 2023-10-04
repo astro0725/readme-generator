@@ -1,8 +1,6 @@
 # CLI README.md Generator
----
 I created two versions of this CLI application. Version one has no customization to meet challenge requirements. Version two offers more customization and allows you to pick and choose what sections you would like to add.
 
----
 ## Table of Contents
 - [Features](#features)
 - [Screenshots](#screenshots)
@@ -10,7 +8,6 @@ I created two versions of this CLI application. Version one has no customization
 - [Credits](#credits)
 - [License](#license)
 
----
 ## Features
 
 V1-
@@ -47,22 +44,19 @@ V2-
 * A prompt is asked if you would like to add a table of contents if you decide that you'd like 4 or more sections to your README.md
 * When file is generated, it is added to the generated-readmes folder within a folder with the corresponding name of the project
 
----
 ## Screenshots
 
 tba
 
----
 ## Demo
 
 tba
 
----
 ## Credits
 
 This README.md was created using V2 of this project.
 
----
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]## License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]
+## License
 
 This project is licensed under the MIT license. For more details, see [this link](https://opensource.org/licenses/MIT).
