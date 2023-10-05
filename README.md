@@ -57,7 +57,7 @@ As the title describes, I have built a simple application for generating a READM
 <video src="media/v1-demo.mp4" controls title="V1"></video>
 
 #### Version 2
-<video src="media/demo-v2.mp4" controls title="V2"></video>
+<video src="media/v2-demo.mp4" controls title="V2"></video>
 
 
 
