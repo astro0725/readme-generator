@@ -57,7 +57,8 @@ tba
 This README.md was created using V2 of this project.
 
 ---
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) 
+
+[License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) 
 ## License
 
 This project is licensed under the MIT license. For more details, see [this link](https://opensource.org/licenses/MIT).
