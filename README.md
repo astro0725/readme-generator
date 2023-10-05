@@ -54,10 +54,10 @@ As the title describes, I have built a simple application for generating a READM
 ## Demo
 
 #### Version 1
-![Demo-V1](./media/demo-v1.mp4)
+<video src="media/v1-demo.mp4" controls title="V1"></video>
 
 #### Version 2
-![Demo-V2](./media/demo-v2.mp4)
+<video src="media/demo-v2.mp4" controls title="V2"></video>
 
 
 
