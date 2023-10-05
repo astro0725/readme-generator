@@ -46,11 +46,20 @@ As the title describes, I have built a simple application for generating a READM
 
 ## Screenshots
 
-tba
+#### Demo V1 README.md
+![Demo-V1](./media/demo-v1.png)
+#### Demo V2 README.md
+![Demo-V2](./media/demo-v2.png)
 
 ## Demo
 
-tba
+#### Version 1
+![Demo-V1](./media/demo-v1.mp4)
+
+#### Version 2
+![Demo-V2](./media/demo-v2.mp4)
+
+
 
 ## Credits
 
