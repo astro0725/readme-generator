@@ -59,7 +59,7 @@ function renderToC(data) {
     license: 'License'
   };
 
-  let toc = "---\n## Table of Contents\n";
+  let toc = "## Table of Contents\n";
   for (let key in tocSections) {
     if (data[key]) {
       toc += `- [${tocSections[key]}](#${key})\n`;
@@ -84,13 +84,13 @@ const sections = {
 };
 
 function renderSection(title, content) {
-  return `---\n## ${title}\n\n${content}\n\n`;
+  return `## ${title}\n\n${content}\n\n`;
 }
 
 // generates readme content
 function generateMarkdown(data) {
   console.log(data);
-  let markdownContent = `# ${data.title}\n---\n${data.description}\n\n`;
+  let markdownContent = `# ${data.title}\n${data.description}\n\n`;
 
 // if user adds ToC, then it will be generated
   if (data.tableOfContents === true) {
