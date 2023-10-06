@@ -44,6 +44,13 @@ As the title describes, I have built a simple application for generating a READM
 * A prompt is asked if you would like to add a table of contents if you decide that you'd like 4 or more sections to your README.md
 * When the file is generated, it is added to the generated-readmes folder within a folder with the corresponding name of the project
 
+## Installation
+
+- Clone my repo in your desired directory using `git clone git@github.com:astro0725/readme-generator.git`
+- Type `npm install`in your terminal to get dependencies
+- CD into your desired version
+- Use `node index.js` to initialize the generator
+
 ## Screenshots
 
 #### Demo V1 README.md
