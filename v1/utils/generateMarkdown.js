@@ -66,7 +66,7 @@ function renderToC(data) {
 
 // dynamic rendering for sections so that they can be added to the renderSection function when called in the generateMarkdown function
 const sections = {
-  installations: 'Installation',
+  installation: 'Installation',
   usage: 'Usage',
   contributing: 'Contributing',
   tests: 'Tests',
