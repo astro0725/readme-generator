@@ -43,9 +43,14 @@ const questions = [
         message: 'Provide test instructions (when your editor opens, type your content, save and close when done):',
     },
     {
-        type: 'editor',
-        name: 'questions',
-        message: 'Enter ways to contact you about your project (when your editor opens, type your content, save and close when done):',
+        type: 'input',
+        name: 'github',
+        message: 'Enter your GitHub username:',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'Enter your email address:',
     },
 ];
 

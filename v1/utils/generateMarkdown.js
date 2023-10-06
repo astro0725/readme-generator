@@ -70,12 +70,29 @@ const sections = {
   usage: 'Usage',
   contributing: 'Contributing',
   tests: 'Tests',
-  questions: 'Questions',
 };
 
 function renderSection(title, content) {
   return `\n## ${title}\n\n${content}\n\n`;
 }
+
+// custom message function for questions
+function renderQuestion(email, github) {
+  if (!email && !github) return '';
+
+  let qSection = "## Questions\n\n";
+
+  if (email) {
+    qSection += `If you have any questions, please contact me at [${email}](mailto:${email}).\n\n`;
+  }
+
+  if (github) {
+    qSection += `Find me on GitHub: [${github}](https://github.com/${github}).\n`;
+  }
+
+  return qSection;
+}
+
 
 // generates readme content
 function generateMarkdown(data) {
@@ -91,6 +108,8 @@ function generateMarkdown(data) {
       markdownContent += renderSection(sections[key], data[key]);
     }
   }
+
+  markdownContent += renderQuestion(email, github) + '\n';
 
 // if user has licensing and wants to include it to the readme, then it will be generated
   if (data.license && data.license !== 'None') {
