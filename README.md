@@ -3,6 +3,7 @@ As the title describes, I have built a simple application for generating a READM
 
 ## Table of Contents
 - [Features](#features)
+- [Installation](#installation)
 - [Screenshots](#screenshots)
 - [Demo](#demo)
 - [Credits](#credits)
